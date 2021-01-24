@@ -1,5 +1,5 @@
-import { Filter } from './filter/filter';
-import { Response } from '../response';
+import { Filter } from './filter';
+import { Response } from './response';
 
 export interface User<T> {
   email: string;
