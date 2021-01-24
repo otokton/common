@@ -1,16 +1,14 @@
+import { AbstractObject } from './abstract-object';
 import { Filter } from './filter';
 import { Response } from './response';
 
-export interface User<T> {
+export interface User<T> extends AbstractObject {
   email: string;
   password?: string;
   role?: string;
   verify?: boolean;
   profile?: T;
   token?: string;
-  _id?: string;
-  updatedDate?: Date;
-  createdDate?: Date;
 }
 
 export interface UserFilter extends Filter {}
