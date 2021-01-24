@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { Pagination, paginationToUri } from '../models/pagination';
+import { Response } from '../models/response';
 
 export class AxiosService {
   apiClient: AxiosInstance;
@@ -27,12 +28,15 @@ export class AxiosService {
     );
   }
 
-  async getAll<T>(uri: string, pagination?: Pagination): Promise<T[]> {
-    return (
-      await this.apiClient.get(
-        `${uri}${pagination ? paginationToUri(pagination) : ''}`
-      )
-    ).data;
+  async getAll<T>(uri: string, pagination?: Pagination): Promise<Response<T>> {
+    return await this.apiClient
+      .get(`${uri}${pagination ? paginationToUri(pagination) : ''}`)
+      .then((response) => {
+        return {
+          total: response.headers[`x-total-count`],
+          data: response.data
+        } as Response<T>;
+      });
   }
 
   async get<T>(uri: string, id: any): Promise<T> {
