@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "prepublish": "tsc"
+    "prepublish": "tsc && cp package.json ./dist && cd dist"
   },
   "dependencies": {
     "axios": "^0.21.1"
