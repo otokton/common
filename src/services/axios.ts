@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { AbstractObject } from '../models/abstract-object';
+import { By } from '../models/filter';
 import { Pagination, paginationToUri } from '../models/pagination';
 import { Response } from '../models/response';
 
@@ -30,6 +31,17 @@ export class AxiosService {
           data: response.data
         } as Response<T>;
       });
+  }
+
+  async getBy<T>(
+    uri: string,
+    by: By,
+    pagination?: Pagination
+  ): Promise<Response<T>> {
+    return this.getAll(
+      `${uri}/${Object.keys(by)[0]}/${Object.values(by)[0]}`,
+      pagination
+    );
   }
 
   async get<T>(uri: string, id: any): Promise<T> {
