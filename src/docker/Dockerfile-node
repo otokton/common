@@ -1,0 +1,17 @@
+FROM node AS builder
+
+WORKDIR /app
+
+COPY . .
+RUN rm -Rf client
+
+RUN yarn config set cache-folder .yarn
+RUN cd server && \
+    yarn install && \
+    yarn run build
+
+RUN ls server/dist/
+
+EXPOSE 3000
+
+CMD ["node", "server/dist/server/index.js"]
